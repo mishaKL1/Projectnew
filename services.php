@@ -1,5 +1,5 @@
 <?php
-include('partials/header.php');
+include('patrials\header.php');
 ?> <!-- connect the file with the header template  --> 
 
 
@@ -187,7 +187,7 @@ include('partials/header.php');
 
     <!-- Footer Starts Here -->
     <?php
-    include('partials/footer.php');
+    include('patrials\footer.php');
     ?><!-- connect the file with the footer template  --> 
     
     <div class="sub-footer">
