@@ -54,7 +54,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
             <?php
-      $pages = array("Domov"=>'index.php', "About Us"=>'about.php','Our Services'=>'services.php',"Contact Us"=>"contact.php","One Page"=>"one-page.php");
+      $pages = array("Domov"=>'index.php', "About Us"=>'about.php','Our Services'=>'services.php',"Contact Us"=>"contact.php","One Page"=>"one-page.php","Rewiews"=>"account.php");
       echo(get_menu($pages))
     ?>
             </ul>
