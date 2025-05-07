@@ -21,7 +21,7 @@
 
           <h4 class="text-primary text-uppercase mb-3 text-center" id="form-title">Registrácia</h4>
 
-          <form id="register-form" method="POST" action="register_process.php">
+          <form id="register-form" method="POST" action="autorithation\register.php">
             <div class="form-group mb-3">
               <input class="form-control" type="text" name="username" placeholder="Používateľské meno *" required>
             </div>
@@ -31,13 +31,16 @@
             <div class="form-group mb-3">
               <input class="form-control" type="password" name="password" placeholder="Heslo *" required>
             </div>
+            <div class="form-group mb-3">
+              <input class="form-control" type="password" name="repeat_password" placeholder="Opakujte heslo *" required>
+            </div>
             <button class="btn btn-primary btn-block" type="submit">Registrovať sa</button>
           </form>
 
 
-          <form id="login-form" method="POST" action="login_process.php" style="display: none;">
+          <form id="login-form" method="POST" action="autorithation\login.php" style="display: none;">
             <div class="form-group mb-3">
-              <input class="form-control" type="email" name="email" placeholder="Email *" required>
+              <input class="form-control" type="text" name="username" placeholder="Username *" required>
             </div>
             <div class="form-group mb-3">
               <input class="form-control" type="password" name="password" placeholder="Heslo *" required>

@@ -1,5 +1,5 @@
 <?php
-  include('inc/functions.php');
+  include('inc/menu.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +54,7 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
             <?php
-      $pages = array("Domov"=>'index.php', "About Us"=>'about.php','Our Services'=>'services.php',"Contact Us"=>"contact.php","One Page"=>"one-page.php","Rewiews"=>"account.php");
+      $pages = array("Domov"=>'index.php', "About Us"=>'about.php','Our Services'=>'services.php',"Contact Us"=>"contact.php","One Page"=>"one-page.php","Reviews"=>"reviews.php");
       echo(get_menu($pages))
     ?>
             </ul>
