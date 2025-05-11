@@ -1,8 +1,9 @@
 <?php
+session_start();
     require_once('../db.php');
     $old_pass = $_POST['old_password'];
-    $new_pass = $_POST['new_password'];
-    $user_name = $_POST['username'];
+    $new_pass =$_POST['new_password'];
+    $user_name = $_SESSION['username'];
     $sql = "SELECT password FROM users WHERE username = '$user_name' LIMIT 1";
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
@@ -14,7 +15,7 @@
         $conn->query($sql);
         header("Location: ../reviews_page.php?status=success");
     }else{
-        header("Location: " . $_SERVER['PHP_SELF']);
+        header("Location: ../reviews_page.php?status=success");
         exit();        
     }
 

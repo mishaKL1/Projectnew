@@ -19,7 +19,7 @@
           <h4 class="text-primary text-uppercase mb-4 text-center">Osobný účet</h4>
 
           <!-- Feedback -->
-          <form method="POST" action="actions/send_feedback.php" class="mb-4">
+          <form method="POST" action="autorithation/feedbek.php" class="mb-4">
             <div class="form-group mb-3">
               <label>Napíšte nám svoj názor:</label>
               <textarea class="form-control" name="feedback" rows="3" required></textarea>
@@ -29,13 +29,9 @@
 
           <hr>
 
-          <button class="btn btn-warning mb-2" onclick="toggleSection('password-section')">Zmeniť heslo</button>
+          <button class="btn btn-warning mb-4" onclick="toggleSection('password-section')">Zmeniť heslo</button>
           <div id="password-section" style="display: none;">
             <form method="POST" action="autorithation\change_password.php?status=success">
-            <div class="form-group mb-3">
-                <label>Vas Login:</label>
-                <input class="form-control" type="text" name="username" required>
-              </div>
               <div class="form-group mb-3">
                 <label>Staré heslo:</label>
                 <input class="form-control" type="password" name="old_password" required>
@@ -51,10 +47,6 @@
           <button class="btn btn-danger mb-2" onclick="toggleSection('delete-section')">Deaktivovať účet</button>
           <div id="delete-section" style="display: none;">
             <form method="POST" action="autorithation/delete_account.php" onsubmit="return confirm('Naozaj chcete deaktivovať svoj účet?');">
-            <div class="form-group mb-3">
-                <label>Vas Login:</label>
-                <input class="form-control" type="text" name="username" required>
-              </div>
               <div class="form-group mb-3">
                 <label>Zadajte heslo pre potvrdenie:</label>
                 <input class="form-control" type="password" name="confirm_password" required>

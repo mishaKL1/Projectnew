@@ -1,10 +1,14 @@
 <?php
 session_start();
 require_once('user.php');
-$usernam = $_POST['username'];
-$email = $_POST['email'];
+$_SESSION['username']= $_POST['username'];
+$_SESSION['email'] = $_POST['email'];
 $pass = $_POST['password'];
 $repeatpass = $_POST['repeat_password'];
+
+$usernam = $_SESSION['username'];
+$email = $_SESSION['email'];
+
 
 require_once('../db.php');
 if(!(empty($usernam) || empty($email)|| empty($pass)) && $repeatpass == $pass){

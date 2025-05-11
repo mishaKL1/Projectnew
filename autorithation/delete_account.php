@@ -1,6 +1,7 @@
 <?php
+session_start();
     require_once('../db.php');
-    $user_name = $_POST['username'];
+    $user_name = $_SESSION['username'];
     $pass = $_POST['confirm_password'];
     $sql = "SELECT password FROM users WHERE username = '$user_name' LIMIT 1";
     $result = $conn->query($sql);
@@ -12,6 +13,7 @@
         $sql = "DELETE FROM users WHERE username = '$user_name'";
         $conn->query($sql);
         header("Location: ../reviews.php");
+        session_destroy();
     }
 
 ?>
