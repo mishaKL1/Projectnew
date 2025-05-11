@@ -1,23 +1,53 @@
 <?php
 session_start();
-require_once('user.php');
-$_SESSION['username']= $_POST['username'];
-$_SESSION['email'] = $_POST['email'];
-$pass = $_POST['password'];
-$repeatpass = $_POST['repeat_password'];
+require_once('User.php');
+class UserRegistration {
+    private $username;
+    private $email;
+    private $password;
+    private $repeatPassword;
 
-$usernam = $_SESSION['username'];
-$email = $_SESSION['email'];
-
-
-require_once('../db.php');
-if(!(empty($usernam) || empty($email)|| empty($pass)) && $repeatpass == $pass){
-        $sql = "INSERT INTO users(username, password, email) VALUES('$usernam','$pass','$email')";
-        $conn -> query($sql);
-        $user_id = $conn->insert_id;
-        $User = new User($usernam , $user_id);
-        header("Location: ../reviews_page.php?status=success");
-        exit;
+    public function __construct($username, $email, $password, $repeatPassword) {
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->repeatPassword = $repeatPassword;
     }
 
-?>
+    public function validate() {
+        if (empty($this->username) || empty($this->email) || empty($this->password)) {
+            header("Location: ../register_form.php?error=empty_fields");
+            exit;
+        }
+        if ($this->password !== $this->repeatPassword) {
+            header("Location: ../register_form.php?error=password_mismatch");
+            exit;
+        }
+    }
+
+    public function register() {
+        $user = new User($this->username, $this->password);
+
+        if ($user->register()) {
+            $_SESSION['username'] = $this->username;
+            $_SESSION['email'] = $this->email;
+            header("Location: ../reviews_page.php?status=success");
+            exit;
+        } else {
+            header("Location: ../register_form.php?error=user_exists");
+            exit;
+        }
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $repeatPassword = $_POST['repeat_password'] ?? '';
+
+    $registration = new UserRegistration($username, $email, $password, $repeatPassword);
+
+    $registration->validate(); 
+    $registration->register(); 
+}

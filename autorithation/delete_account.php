@@ -1,19 +1,52 @@
 <?php
 session_start();
-    require_once('../db.php');
-    $user_name = $_SESSION['username'];
-    $pass = $_POST['confirm_password'];
-    $sql = "SELECT password FROM users WHERE username = '$user_name' LIMIT 1";
-    $result = $conn->query($sql);
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $current_pass=  $row['password'];
-    }
-    if($current_pass == $pass){
-        $sql = "DELETE FROM users WHERE username = '$user_name'";
-        $conn->query($sql);
-        header("Location: ../reviews.php");
-        session_destroy();
+require_once('User.php');
+class UserAccountDelete {
+    private $username;
+    private $confirmPassword;
+
+    public function __construct($username, $confirmPassword) {
+        $this->username = $username;
+        $this->confirmPassword = $confirmPassword;
     }
 
-?>
+    public function validate() {
+        if (empty($this->confirmPassword)) {
+            header("Location: ../account_delete_form.php?error=empty_password");
+            exit;
+        }
+    }
+
+    public function deleteAccount() {
+        $user = new User($this->username, $this->confirmPassword);
+
+        if ($user->login()) {
+            if ($user->delete()) {
+                session_destroy();
+                header("Location: ../reviews.php?status=account_deleted");
+                exit;
+            } else {
+                header("Location: ../account_delete_form.php?error=delete_failed");
+                exit;
+            }
+        } else {
+            header("Location: ../account_delete_form.php?error=wrong_password");
+            exit;
+        }
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_SESSION['username'])) {
+        header("Location: ../login_form.php");
+        exit;
+    }
+
+    $username = $_SESSION['username'];
+    $confirmPassword = $_POST['confirm_password'] ?? '';
+
+    $accountDelete = new UserAccountDelete($username, $confirmPassword);
+
+    $accountDelete->validate();
+    $accountDelete->deleteAccount();
+}

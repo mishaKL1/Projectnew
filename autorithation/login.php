@@ -1,27 +1,43 @@
 <?php
 session_start();
-require_once('../db.php');
-require_once('user.php');
-$usernam = $_POST['username'];
-$passw = $_POST['password'];
-$_SESSION['username'] = $usernam;
+require_once('User.php');
 
-$sql = "SELECT password FROM users WHERE username = '$usernam'";
-$result = $conn->query($sql);
+class UserLogin {
+    private $username;
+    private $password;
 
-
-if (empty($usernam) || empty($passw)){
-    echo"vsetky pola musi byt naplnené";
-}else{
-    $sql = "SELECT * FROM users WHERE username = '$usernam' and password = '$passw'";
-    $result = $conn->query($sql);
-
-    if($result->num_rows>0){
-        header("Location: ../reviews_page.php?status=success");
-        exit;
-    }else{
-        echo $usernam , $passw ;
+    public function __construct($username, $password) {
+        $this->username = $username;
+        $this->password = $password;
     }
-    $User = new User($usernam , $passw);
+
+    public function validate() {
+        if (empty($this->username) || empty($this->password)) {
+            header("Location: ../login_form.php?error=empty_fields");
+            exit;
+        }
+    }
+
+    public function login() {
+        $user = new User($this->username, $this->password);
+
+        if ($user->login()) {
+            $_SESSION['username'] = $this->username;
+            header("Location: ../reviews_page.php?status=login_success");
+            exit;
+        } else {
+            header("Location: ../login_form.php?error=invalid_credentials");
+            exit;
+        }
+    }
 }
-?>
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    $login = new UserLogin($username, $password);
+
+    $login->validate(); 
+    $login->login(); 
+}
