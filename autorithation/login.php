@@ -1,5 +1,6 @@
 <?php
 require_once('../db.php');
+require_once('user.php');
 $usernam = $_POST['username'];
 $pass = $_POST['password'];
 if (empty($usernam) || empty($pass)){
@@ -9,9 +10,9 @@ if (empty($usernam) || empty($pass)){
     $result = $conn->query($sql);
 
     if($result->num_rows>0){
-        echo "uspeh";
+        header("Location: ../reviews_page.php?status=success");
+        exit;
     }
-
 }
-
+$User = new User($usernam , $pass);
 ?>

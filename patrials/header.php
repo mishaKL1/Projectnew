@@ -54,8 +54,13 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
             <?php
-      $pages = array("Domov"=>'index.php', "About Us"=>'about.php','Our Services'=>'services.php',"Contact Us"=>"contact.php","One Page"=>"one-page.php","Reviews"=>"reviews.php");
-      echo(get_menu($pages))
+            if(isset($_GET['status']) && $_GET['status'] == 'success'){
+              $pages = array("Domov"=>'index.php?status=success', "About Us"=>'about.php?status=success','Our Services'=>'services.php?status=success',"Contact Us"=>"contact.php?status=success","Reviews"=>"reviews_page.php?status=success");
+              echo(get_menu($pages));
+            }else{
+      $pages = array("Domov"=>'index.php', "About Us"=>'about.php','Our Services'=>'services.php',"Contact Us"=>"contact.php","Reviews"=>"reviews.php");
+      echo(get_menu($pages));
+            }
     ?>
             </ul>
           </div>
