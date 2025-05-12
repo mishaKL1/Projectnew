@@ -71,5 +71,11 @@ class User {
         $stmt = $this->conn->prepare("DELETE FROM users WHERE username = :username");
         return $stmt->execute(['username' => $this->username]);
     }
-}
 
+    public function getUserData(): ?array {
+    $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt->execute(['username' => $this->username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user ?: null;
+}
+}

@@ -22,8 +22,21 @@ class UserLogin {
         $user = new User($this->username, $this->password);
 
         if ($user->login()) {
+            $userData = $user->getUserData();
+
+            if (!$userData) {
+                header("Location: ../login_form.php?error=user_not_found");
+                exit;
+            }
+
             $_SESSION['username'] = $this->username;
-            header("Location: ../reviews_page.php?status=login_success");
+            $_SESSION['role'] = $userData['role'];
+
+            if ($userData['role'] === 'admin') {
+                header("Location: ../reviews_page.php?status=admin");
+            } else {
+                header("Location: ../reviews_page.php?status=login_success");
+            }
             exit;
         } else {
             header("Location: ../login_form.php?error=invalid_credentials");
@@ -37,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     $login = new UserLogin($username, $password);
-
     $login->validate(); 
     $login->login(); 
 }

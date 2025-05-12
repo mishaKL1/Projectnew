@@ -54,7 +54,11 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
             <?php
-            if(isset($_GET['status']) && $_GET['status'] == 'success'){
+         if(isset($_GET['status']) && $_GET['status'] == 'admin'){
+              $pages = array("Domov"=>'index.php?status=admin', "About Us"=>'about.php?status=admin','Our Services'=>'services.php?status=admin',"Contact Us"=>"contact.php?status=admin","Reviews"=>"reviews_page.php?status=admin","adminpanel"=>'admin.php?status=admin');
+              echo(get_menu($pages));
+            }
+            elseif(isset($_GET['status']) && $_GET['status'] == 'success'){
               $pages = array("Domov"=>'index.php?status=success', "About Us"=>'about.php?status=success','Our Services'=>'services.php?status=success',"Contact Us"=>"contact.php?status=success","Reviews"=>"reviews_page.php?status=success");
               echo(get_menu($pages));
             }else{
