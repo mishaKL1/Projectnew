@@ -1,34 +1,36 @@
 <?php
 session_start();
 require_once('../db/db.php');
-require_once('user.php');
 
-if (!empty($_POST['feedback']) && !empty($_SESSION['username'])) {
-    $text = $_POST['feedback'];
-    $author_name = $_SESSION['username'];
+class Feedback {
+    public static function submit() {
+        if (empty($_POST['feedback']) || empty($_SESSION['username'])) {
+            self::redirect('empty_input');
+        }
 
-    $pdo = Database::getConnection();
-
-    try {
+        $pdo = Database::getConnection();
         $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ?");
-        $stmt->execute([$author_name]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute([$_SESSION['username']]);
+        $user = $stmt->fetch();
 
         if ($user) {
-            $user_id = $user['id'];
             $stmt = $pdo->prepare("INSERT INTO reviews (id_user, text) VALUES (?, ?)");
-            $stmt->execute([$user_id, $text]);
-            header("Location: ../reviews_page.php?status=success");
-            exit();
+            $stmt->execute([$user['id'], $_POST['feedback']]);
+            self::redirect('success');
         } else {
-            header("Location: ../reviews_page.php?status=user_not_found");
-            exit();
+            self::redirect('user_not_found');
         }
-    } catch (PDOException $e) {
-        header("Location: ../reviews_page.php?status=db_error");
+    }
+
+    private static function redirect($status) {
+        header("Location: ../reviews_page.php?status=$status");
         exit();
     }
-} else {
-    header("Location: ../reviews_page.php?status=empty_input");
+}
+
+try {
+    Feedback::submit();
+} catch (Exception $e) {
+    header("Location: ../reviews_page.php?status=db_error");
     exit();
 }
