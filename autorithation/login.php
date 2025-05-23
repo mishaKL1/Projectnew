@@ -31,7 +31,6 @@ class UserLogin {
 
             $_SESSION['username'] = $this->username;
             $_SESSION['role'] = $userData['role'];
-
             if ($userData['role'] === 'admin') {
                 header("Location: ../reviews_page.php?status=admin");
             } else {

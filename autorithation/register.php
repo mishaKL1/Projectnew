@@ -26,7 +26,7 @@ class UserRegistration {
     }
 
     public function register() {
-        $user = new User($this->username, $this->password);
+        $user = new User($this->username, $this->password,$this->email);
 
         if ($user->register()) {
             $_SESSION['username'] = $this->username;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Май 13 2025 г., 18:14
+-- Время создания: Май 24 2025 г., 01:24
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -38,7 +38,10 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `id_user`, `text`) VALUES
-(1, 21, 'dfd');
+(1, 21, 'dfd'),
+(2, 30, '1/100'),
+(3, 1, '29'),
+(4, 1, '1/100');
 
 -- --------------------------------------------------------
 
@@ -59,11 +62,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`) VALUES
-(1, 'admin77', '$2y$10$D288sY1oyH58YmQb9rfEiOUGZJ5dPLN/1zkv6n1fK3N3WkBzxt3Am', '2@sss', 'admin'),
-(21, 'admin', '777', 'ml2809520@gmail.com', 'user'),
-(25, '1', '$2y$10$rrq/rYzu/zXIfnhmfDdXhOsx42J4ysS4XGjvUInpK9GhXZl6b5aE6', '', 'user'),
-(26, '2', '$2y$10$8dWZsWZQ/KF0jqV5DJpuSetRvpRGgtmHM7vpeIodBVF5GjN8rqwKu', '', 'user'),
-(29, 'ne_admin', '$2y$10$D288sY1oyH58YmQb9rfEiOUGZJ5dPLN/1zkv6n1fK3N3WkBzxt3Am', '', 'user');
+(1, 'admin77', '$2y$10$yLzOGHdD70ccAvmosK.uxeaycwgJoRQQsIRXthdpgqwbZf9nIXP8W', '2@sss', 'admin'),
+(31, 'adminpanel', '$2y$10$nQrRAORQvW6roPud3Q9gf.6ixhOAyDKu1vnls47cj7p0M0qFKFtqK', '', 'admin'),
+(32, 'ad', '$2y$10$uKCgpHaBFi89TOeUqrqYaeKXq7kM17xvaji0Lj68J5w/no5J8CImC', '', 'user'),
+(33, 'ad1', '$2y$10$BSf82Rje0qf9oXG/5ZXylepKH96zXblxM2r0.O5v9yWdjBr798KM2', '', 'user'),
+(34, '2', '$2y$10$QVDDheTqR33TlcwBVmc4OejDJhTVEafNd25t7OqZ49EGqUl3s96Em', '', 'user'),
+(37, '3', '$2y$10$BitTcUVjVNFEJOB96r8cCui/UU0eB.kL.JHO.7Z1JnN3Ta9OCqd/O', '3@323232', 'user');
 
 --
 -- Индексы сохранённых таблиц
@@ -90,23 +94,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- Ограничения внешнего ключа сохраненных таблиц
---
-
---
--- Ограничения внешнего ключа таблицы `reviews`
---
-ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

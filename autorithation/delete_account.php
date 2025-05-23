@@ -4,6 +4,7 @@ require_once('User.php');
 class UserAccountDelete {
     private $username;
     private $confirmPassword;
+    private $email;
 
     public function __construct($username, $confirmPassword) {
         $this->username = $username;
@@ -18,7 +19,7 @@ class UserAccountDelete {
     }
 
     public function deleteAccount() {
-        $user = new User($this->username, $this->confirmPassword);
+        $user = new User($this->username, $this->confirmPassword,$this->email);
 
         if ($user->login()) {
             if ($user->delete()) {
@@ -44,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = $_SESSION['username'];
     $confirmPassword = $_POST['confirm_password'] ?? '';
+    $email = $_SESSION['email'] ?? '';
 
     $accountDelete = new UserAccountDelete($username, $confirmPassword);
 

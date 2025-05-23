@@ -4,31 +4,15 @@ require_once('../db/db.php');
 class User {
     private string $username;
     private string $password;
+    private ?string $email;
     private PDO $conn;
 
-    public function __construct(string $username = '', string $password = '') {
+    public function __construct(string $username = '', string $password = '', ?string $email='') {
         $this->username = $username;
         $this->password = $password;
+        $this->email = $email;
         $this->conn = Database::getConnection();
     }
-
-
-    public function getUsername(): string {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): void {
-        $this->username = $username;
-    }
-
-    public function getPassword(): string {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void {
-        $this->password = $password;
-    }
-
 
     public function updatePassword(string $newPassword): bool {
         $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
@@ -61,10 +45,11 @@ class User {
 
         $hashedPassword = password_hash($this->password, PASSWORD_BCRYPT);
 
-        $stmt = $this->conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
+        $stmt = $this->conn->prepare("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)");
         return $stmt->execute([
             'username' => $this->username,
-            'password' => $hashedPassword
+            'password' => $hashedPassword,
+            'email' => $this->email
         ]);
     }
     public function delete(): bool {
