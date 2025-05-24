@@ -39,7 +39,7 @@ class UserPasswordChange {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_SESSION['username'])) {
-        header("Location: ../login_form.php");
+        header("Location: ../reviews.php");
         exit;
     }
 
