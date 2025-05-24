@@ -13,7 +13,7 @@ class UserAccountDelete {
 
     public function validate() {
         if (empty($this->confirmPassword)) {
-            header("Location: ../account_delete_form.php?error=empty_password");
+            header("Location: ../reviews_page.php?error=empty_password");
             exit;
         }
     }
@@ -27,11 +27,11 @@ class UserAccountDelete {
                 header("Location: ../reviews.php?status=account_deleted");
                 exit;
             } else {
-                header("Location: ../account_delete_form.php?error=delete_failed");
+                header("Location: ../reviews_page.php?error=delete_failed");
                 exit;
             }
         } else {
-            header("Location: ../account_delete_form.php?error=wrong_password");
+            header("Location: ../reviews_page.php?error=wrong_password");
             exit;
         }
     }

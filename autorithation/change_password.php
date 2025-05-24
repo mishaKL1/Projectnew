@@ -14,7 +14,7 @@ class UserPasswordChange {
 
     public function validate() {
         if (empty($this->oldPassword) || empty($this->newPassword)) {
-            header("Location: ../change_password_form.php?error=empty_fields");
+            header("Location: ../reviews_page.php?error=empty_fields");
             exit;
         }
     }
@@ -27,11 +27,11 @@ class UserPasswordChange {
                 header("Location: ../reviews_page.php?status=password_changed");
                 exit;
             } else {
-                header("Location: ../change_password_form.php?error=update_failed");
+                header("Location: ../reviews_page.php?error=update_failed");
                 exit;
             }
         } else {
-            header("Location: ../change_password_form.php?error=wrong_old_password");
+            header("Location: ../reviews_page.php?error=wrong_old_password");
             exit;
         }
     }

@@ -16,11 +16,11 @@ class UserRegistration {
 
     public function validate() {
         if (empty($this->username) || empty($this->email) || empty($this->password)) {
-            header("Location: ../register_form.php?error=empty_fields");
+            header("Location: ../reviews.php?error=empty_fields");
             exit;
         }
         if ($this->password !== $this->repeatPassword) {
-            header("Location: ../register_form.php?error=password_mismatch");
+            header("Location: ../reviews.php?error=password_mismatch");
             exit;
         }
     }
@@ -34,7 +34,7 @@ class UserRegistration {
             header("Location: ../reviews_page.php?status=success");
             exit;
         } else {
-            header("Location: ../register_form.php?error=user_exists");
+            header("Location: ../reviews.php?error=user_exists");
             exit;
         }
     }

@@ -38,7 +38,7 @@ class UserLogin {
             }
             exit;
         } else {
-            header("Location: ../login_form.php?error=invalid_credentials");
+            header("Location: ../reviews.php?error=invalid_credentials");
             exit;
         }
     }
